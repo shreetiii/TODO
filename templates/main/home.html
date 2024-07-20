@@ -5,4 +5,22 @@
 
 {% block content %}
     <h1>Home Page</h1>
+
+    {% for todo in todos %}
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">{{todo.title}}</h5>
+            <p class="card-text">{{todo.content}}</p>
+            <a href="#" class="card-link">delete</a>
+            <a href="#" class="card-link">edit</a>
+            </div>
+        </div>
+
+
+    {% endfor %}
+
+
+   
+
 {% endblock content %}

@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from main.models import TODO
 
 # Create your views here.
 def home(request):
-    return render(request, 'main/home.html')
+    todos = TODO.objects.all()
+    print(todos)
+    return render(request, 'main/home.html', {'todos':todos})
 
 def contact(request):
     return render(request, 'main/contact.html')
@@ -18,8 +20,8 @@ def add(request):
         description = request.POST['description']
         title = request.POST['title']
 
-        print(request.POST)
-
 
 
         TODO.objects.create(title=title, content=description, is_completed=False, user_id=1)
+
+        return redirect('http://127.0.0.1:8000/')
