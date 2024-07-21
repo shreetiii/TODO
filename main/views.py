@@ -4,8 +4,11 @@ from main.models import TODO
 # Create your views here.
 def home(request):
     todos = TODO.objects.all()
-    print(todos)
-    return render(request, 'main/home.html', {'todos':todos})
+    if request.user.is_authenticated:
+        return render(request, 'main/home.html', {'todos':todos})
+    else: 
+        return redirect('signin')
+    
 
 def contact(request):
     return render(request, 'main/contact.html')
