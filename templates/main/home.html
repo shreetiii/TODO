@@ -6,19 +6,44 @@
 {% block content %}
     <h1>Home Page</h1>
 
-    {% for todo in todos %}
+   
+    {% if todos %}
+        {% for todo in todos %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                {% if todo.is_completed %}
+                    <del><h5 class="card-title">{{todo.title}}</h5></del>
+                    <del><p class="card-text">{{todo.content}}</p></del>
+                {% else %}
+                    <h5 class="card-title">{{todo.title}}</h5>
+                    <p class="card-text">{{todo.content}}</p>
+                {% endif %}
 
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-            <h5 class="card-title">{{todo.title}}</h5>
-            <p class="card-text">{{todo.content}}</p>
-            <a href="#" class="card-link">delete</a>
-            <a href="#" class="card-link">edit</a>
+                <p><small>Last Updated Date: {{todo.updated_date}}</small></p>
+                <p><small>Created by: {{todo.user.username}}</small></p>
+
+
+                <a href="{% url 'delete' id=todo.id %}" class="card-link">delete</a>
+                <a href="{% url 'edit-todo' id=todo.id %}" class="card-link">edit</a>
+
+                {% if todo.is_completed %}
+                <a href="{% url 'complete-todo' id=todo.id %}" class="card-link">mark incomplete</a>
+                {% else %}
+                <a href="{% url 'complete-todo' id=todo.id %}" class="card-link">mark complete</a>
+
+                {% endif %}
+
+                </div>
             </div>
-        </div>
+
+        {% endfor %}
+
+    {% else %}
+        <p> class="card-text">NO Todo Items</p>
+
+    {% endif %}
 
 
-    {% endfor %}
 
 
    
